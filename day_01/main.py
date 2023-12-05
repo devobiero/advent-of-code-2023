@@ -25,8 +25,6 @@ result = 29 + 83 + 13 + 24 + 42 + 14 + 76 = 281
 
 
 def part_one(filename):
-    calibrations = load_calibrations(filename)
-
     def digit_from_left(calibration):
         left = 0
 
@@ -50,12 +48,15 @@ def part_one(filename):
     def extract_digits(calibration):
         return "".join([digit_from_left(calibration), digit_from_right(calibration)])
 
-    return sum([int(extract_digits(calibration)) for calibration in calibrations])
+    return sum(
+        [
+            int(extract_digits(calibration))
+            for calibration in load_calibrations(filename)
+        ]
+    )
 
 
 def part_two(filename):
-    calibrations = load_calibrations(filename)
-
     def word_to_number(word):
         lookup = {
             "one": 1,
@@ -114,7 +115,12 @@ def part_two(filename):
     def extract_digits(calibration):
         return "".join([digit_from_left(calibration), digit_from_right(calibration)])
 
-    return sum([int(extract_digits(calibration)) for calibration in calibrations])
+    return sum(
+        [
+            int(extract_digits(calibration))
+            for calibration in load_calibrations(filename)
+        ]
+    )
 
 
 def load_calibrations(filename):
