@@ -6,7 +6,7 @@ do
     if test -f "$PYFILE";
     then
         echo "#### Day $i ####"
-        python "$PYFILE"
+        python3 "$PYFILE"
         printf "\n"
     fi
 done
