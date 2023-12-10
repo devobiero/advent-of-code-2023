@@ -3,19 +3,16 @@ def part_one(filename):
     total = 0
 
     for card in cards:
-        played, winning_number = card
-        hands = played.split(" ")
-        winners = winning_number.split(" ")
+        _, played, winners = card
+        played = played.split(" ")
+        winners = winners.split(" ")
+
         i = 0
         count = 0
         points = 0
 
-        while i < len(hands):
-            if not hands[i]:
-                i += 1
-                continue
-
-            if hands[i] in winners:
+        while i < len(played):
+            if played[i] and played[i] in winners:
                 count += 1
                 points = points * 2 if count > 1 else 1
 
@@ -26,7 +23,40 @@ def part_one(filename):
 
 
 def part_two(filename):
-    pass
+    cards = read_cards(filename)
+    copies = []
+
+    for card in cards:
+        card_number, played, winners = card
+        played = played.split(" ")
+        winners = winners.split(" ")
+
+        i = 0
+        count = 0
+
+        while i < len(played):
+            if played[i] and played[i] in winners:
+                count += 1
+            i += 1
+
+        num = int(card_number)
+        extra = copies.count(num)
+        next_card = num + 1
+        tmp = []
+        copies.append(num)
+
+        while count > 0:
+            tmp.append(next_card)
+            next_card += 1
+            count -= 1
+
+        copies.extend(tmp)
+
+        while extra > 0:
+            copies.extend(tmp)
+            extra -= 1
+
+    return len(copies)
 
 
 def read_cards(filename):
@@ -35,7 +65,8 @@ def read_cards(filename):
         cards = []
         for line in lines:
             data = line.split(" | ")
-            cards.append((data[0].split(": ")[1], data[1]))
+            card = data[0].split(": ")
+            cards.append((card[0].split("Card")[1].strip(), card[1], data[1]))
 
     return cards
 
