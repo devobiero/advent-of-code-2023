@@ -7,14 +7,14 @@ def part_one(filename):
     distance = [int(race) for race in races[1].split(" ") if race]
 
     def possible_records(time, distance):
-        records = []
+        records = 0
         for i in range(time):
             if not i:
                 continue
             dist = (time - i) * i
             if dist > distance:
-                records.append(dist)
-        return len(records)
+                records += 1
+        return records
 
     records = []
     for time, dist in zip(times, distance):
@@ -29,14 +29,14 @@ def part_two(filename):
     distance = races[1].replace(" ", "")
 
     def possible_records(time, distance):
-        records = []
+        records = 0
         for i in range(time):
             if not i:
                 continue
             dist = (time - i) * i
             if dist > distance:
-                records.append(dist)
-        return len(records)
+                records += 1
+        return records
 
     return possible_records(int(time), int(distance))
 
@@ -48,7 +48,7 @@ def load_races(filename):
 
 
 if __name__ == "__main__":
-    input_path = "./day_06/input.txt"
+    input_path = "./day_06/test.txt"
     print("------Part One-----")
     print(part_one(input_path))
 
