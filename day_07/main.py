@@ -75,14 +75,15 @@ def part_two(filename):
         for c in hand:
             freqs[c] = freqs.get(c, 0) + 1
 
-        nums = freqs.get("J", 0)
-        if nums and nums < 5:
-            # find the most frequent key which is not J
+        counts = freqs.get("J", 0)
+        if counts and counts < 5:
+            # find the most frequent key which is not J and
+            # update it with the counts of J
             max_key = max(
                 ((key, value) for key, value in freqs.items() if key != "J"),
                 key=lambda x: x[1],
             )[0]
-            freqs[max_key] += nums
+            freqs[max_key] += counts
             del freqs["J"]
 
         results.append((hand, get_hand_type(hand, freqs), int(bid)))
