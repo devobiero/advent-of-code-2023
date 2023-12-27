@@ -27,7 +27,22 @@ def part_one(filename):
 
 
 def part_two(filename):
-    pass
+    oases = load_oasis(filename)
+    oases = [list(map(int, line.split(" "))) for line in oases]
+
+    def solve(nums):
+        sum = 0
+        while not all(x == 0 for x in nums):
+            sum += nums[-1]
+            nums = [nums[i + 1] - nums[i] for i in range(len(nums) - 1)]
+        return sum
+
+    results = []
+    for oasis in oases:
+        oasis = oasis[::-1]
+        results.append(solve(oasis))
+
+    return sum(results)
 
 
 def load_oasis(filename):
